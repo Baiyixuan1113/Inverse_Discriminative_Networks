@@ -96,12 +96,10 @@ if __name__ == "__main__":
     loss_weight = [0.3, 0.4, 0.3]  # 损失函数权重比例
     # threshold = 0.5  # 判定准确率阈值
 
-    model_path = '/home/data/ETOP/project_IDN/logs/IDN_test_idea_0118/model_299.h5'  # H5模型路径
-    test_data_path = '/home/data/ETOP/project_IDN/data_check_0118/test_data.csv'  # test.csv路径
-    # test_data_path = '/home/data/ETOP/project_IDN/test_data_old/test_old_photo.csv'  # test.csv路径
+    model_path = ''  # H5模型路径
+    test_data_path = ''  # test.csv路径
 
     data_list = get_list_for_data(test_data_path)
-
     # 加载模型
     model = load_h5_model(model_path=model_path,
                           input_height=input_height,
@@ -138,7 +136,7 @@ if __name__ == "__main__":
         img_vmerge = np.vstack((img_1, img_2))
         # print(img_vmerge.shape)
         imshow_name = '{}, {}'.format(img1_name, img2_name)
-        # 各参数依次是: 图像,添加的文字,左上角坐标,字体,字体大小,颜色,字体粗细
+        # 参数: 图像,添加的文字,左上角坐标,字体,字体大小,颜色,字体粗细
         cv2.putText(img_vmerge, label_t_text, (0, 290),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 118, 72), 2)
         cv2.putText(img_vmerge, label_p_text, (0, 310),
