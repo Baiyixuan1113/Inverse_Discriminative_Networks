@@ -4,12 +4,12 @@ import random
 
 import numpy as np
 
-num_people = 1050  # 数据人数
-num_original = 50  # 正样本数量
-num_forgeries = 50  # 负样本数量
+num_people = 55  # 数据人数
+num_original = 20  # 正样本数量
+num_forgeries = 20  # 负样本数量
 
-dataset_path = '/home/data/Datasets/HWDSV_data'
-save_path = '/home/DeepLeaning/project_IDN/data'
+dataset_path = ''
+save_path = ''
 train_data_file = 'train_data.csv'
 val_data_file = 'val_data.csv'
 test_data_file = 'test_data.csv'
