@@ -18,17 +18,17 @@ from data_loader import data_generate
 from IDN import *
 
 # PROJECT_NAME
-project_name = "IDN_20210127"
+project_name = "IDN_net"
 
 # ROOT_PATH
-project_path = '/home/data/ETOP/project_IDN'
+project_path = '/home/data/project_IDN'
 
 # DATA_FILE
-data_file = '/home/data/ETOP/project_IDN/data'
+data_file = '/home/data/project_IDN/data'
 
 # MODEL_SAVE
 model_save_path = os.path.join(project_path, 'logs', project_name)
-csvloger_path = '/home/data/ETOP/project_IDN/trainval_note/IDN_0127.csv'
+csvloger_path = '/home/data/project_IDN/trainval_note/{}.csv'.format(project_name)
 
 # 是否加载预训练模型
 need_load_weight = False  # True or False
@@ -91,14 +91,14 @@ if __name__ == "__main__":
 
     # ------------------------------------------------------------
     # 保存模型结构到txt文件
-    # with open('/home/data/ETOP/project_IDN/asdzz/IDN.txt', 'w') as f:
+    # with open('/home/data/project_IDN/IDN.txt', 'w') as f:
     #     with redirect_stdout(f):
     #         model.summary()
 
     # ------------------------------------------------------------
     # 保存模型结构到png文件
     # plot_model(model=model,
-    #            to_file='/home/data/ETOP/project_IDN/asdzz/IDN.png')
+    #            to_file='/home/data/project_IDN/IDN.png')
 
     train_data_gen = data_generate(data_list_path=data_file,
                                    batch_size=batch_size,
