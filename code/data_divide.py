@@ -42,15 +42,16 @@ def combine_2list(list1, list2):
 
 
 def generate_df(num_people):
+    signature_list = list(range(1, num_people+1))
     train_size = int(num_people*0.9)
     val_size = int(num_people*0.08)
     test_size = num_people-train_size-val_size
-    
-    signature_list = list(range(1, num_people+1))
-    lis_train = random.sample(signature_list, train_size)
-    lis_val_test = list(set(signature_list).difference(set(lis_train)))
-    lis_val = random.sample(lis_val_test, val_size)
-    lis_test = list(set(lis_val_test).difference(set(lis_val)))
+
+    lis_all = list(range(1, num_people+1))
+    train_indexs = random.sample(lis_all, train_size)
+    lis_val_test = list(set(lis_all).difference(set(train_indexs)))
+    val_indexs = random.sample(lis_val_test, val_size)
+    test_indexs = list(set(lis_val_test).difference(set(val_indexs)))
     
     org_path = os.path.join(dataset_path, 'full_org', 'original_')
     forg_path = os.path.join(dataset_path, 'full_forg', 'forgeries_')
