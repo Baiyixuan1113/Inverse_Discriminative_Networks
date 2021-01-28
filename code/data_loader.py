@@ -47,8 +47,8 @@ def get_image_array(image_input,
 
     if is_training:
         if do_augment:
-            asdzz = random.randint(0, 9)
-            if asdzz > 8:
+            er = random.randint(0, 9)
+            if er > 8:
                 # 自适应阈值二值化
                 img_aug = erzhi(img)
                 img_aug = np.expand_dims(img_aug, axis=2)
@@ -193,65 +193,3 @@ def erzhi(img):
 
 if __name__ == "__main__":
     pass
-    file_path = '/home/data/ETOP/project_IDN/data'
-    save_path = '/home/data/ETOP/project_IDN/check_data'
-
-    # # ================================================================================
-    # # file_path = '/home/mortal/桌面/data/ETOP/project_IDN/data/train_data.csv'
-    # # file_path = '/home/mortal/桌面/data/ETOP/project_IDN/data/val_data.csv'
-    # file_path = '/home/mortal/桌面/data/ETOP/project_IDN/data/test_data.csv'
-    # lis_data = get_list_for_data(file_path)
-    # print(len(lis_data))
-    # # ================================================================================
-
-    from config import *
-    check_data_gen = data_generate(data_list_path=file_path,
-                                   batch_size=1,
-                                   height=INPUT_HEIGHT,
-                                   width=INPUT_WIDTH,
-                                   is_training=True,
-                                   do_augment=True)
-    a, b = 1, 1
-    for lis_img, lis_label in check_data_gen:
-        label = lis_label[0].tolist()
-        label = label[0]
-        label_text = 'label:{}'.format(label)
-
-        img_01 = lis_img[0]
-        img_02 = lis_img[1]
-        # print('img_01 OLD:', img_01.shape)
-        # print('img_02 OLD:', img_02.shape)
-        img_01 = img_01.reshape(INPUT_HEIGHT, INPUT_WIDTH, INPUT_CHANNEL)
-        img_02 = img_02.reshape(INPUT_HEIGHT, INPUT_WIDTH, INPUT_CHANNEL)
-
-        img_vmerge = np.vstack((img_01, img_02))
-        cv2.putText(img_vmerge, label_text, (100, 290),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 118, 72), 2)
-        cv2.imshow('check', img_vmerge)
-        k = cv2.waitKey(0)
-        if k == 27:
-            cv2.destroyAllWindows()
-            exit()
-
-        # # print('img_01:', img_01.shape)
-        # # print('img_02:', img_02.shape)
-        # img_01_name = 'img_01_{}.png'.format(a)
-        # img_02_name = 'img_02_{}.png'.format(b)
-        # img_01_save = os.path.join(save_path, img_01_name)
-        # img_02_save = os.path.join(save_path, img_02_name)
-        # cv2.imwrite(img_01_save, img_01)
-        # cv2.imwrite(img_02_save, img_02)
-        # print(img_01_save, '--save--')
-        # print(img_02_save, '--save--')
-        # a += 1
-        # b += 1
-
-    # img_path = '/home/mortal/桌面/data/Datasets/ETOP_HWDS_data/full_forg/forgeries_1_2.png'
-    # img = cv2.imread(img_path)
-    # print(img.shape)
-    # img_re = erzhi(img)
-    # print(img_re.shape)
-    # img_aug = np.expand_dims(img_re, axis=2)
-    # img_aug = np.concatenate((img_aug, img_aug, img_aug), axis=-1)
-    # print(img_aug.shape)
-    # cv2.imwrite('/home/mortal/桌面/data/ETOP/project_IDN/asdzz/asdzz.png',img_re)
