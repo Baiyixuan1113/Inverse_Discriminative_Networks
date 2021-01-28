@@ -15,7 +15,7 @@ from config import *
 from data_loader import data_generate, get_image_array
 from IDN import *
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 
 def get_list_for_data(data_list_path):
@@ -111,19 +111,15 @@ if __name__ == "__main__":
     # threshold = 0.5  # 判定准确率阈值
 
     # ------------------------------     .H5模型路径     ------------------------------
-    model_path = '/home/data/ETOP/project_IDN/logs/IDN_20210121/model_0692.h5'
+    model_path = ''
     # --------------------------------------------------------------------------------
 
     # ------------------------------  test_data.csv路径  ------------------------------
-    # test_data_path = '/home/data/ETOP/project_IDN/data_check_0118/test_data.csv'
-    # test_data_path = '/home/data/ETOP/project_IDN/test_data_old/test_old_photo.csv'
-    test_data_path = '/home/data/ETOP/project_IDN/test_data_old/test_old_black.csv'
+    test_data_path = ''
     # --------------------------------------------------------------------------------
 
     # ------------------------------ test_result.csv路径 ------------------------------
-    # test_result_path = '/home/data/ETOP/project_IDN/test_result/test_result_01.csv'
-    # test_result_path = '/home/data/ETOP/project_IDN/test_result/test_result_02.csv'
-    test_result_path = '/home/data/ETOP/project_IDN/test_result/test_result_03.csv'
+    test_result_path = ''
     # --------------------------------------------------------------------------------
 
     data_list = get_list_for_data(test_data_path)
