@@ -131,38 +131,38 @@ def predict_by_pb_volume(input_height,
 
     data_list = get_list_for_data(test_data_path)
     data_txt = 'img_01, img_02, label_true, lable_pred\n'
-    for img_01_path, img_02_path, label_t in data_list:
-        # 读入图像并进行预处理
-        img_01 = processong_img(img_path=img_01_path,
-                                input_height=input_height,
-                                input_width=input_width)
-        img_02 = processong_img(img_path=img_02_path,
-                                input_height=input_height,
-                                input_width=input_width)
-        # 预测
-        op_time = time.time()
-        with tf.Session() as sess:
-            img_input_01 = sess.graph.get_tensor_by_name('input_1:0')
-            img_input_02 = sess.graph.get_tensor_by_name('input_2:0')
-            output_01 = sess.graph.get_tensor_by_name('output_1:0')
-            output_02 = sess.graph.get_tensor_by_name('output_2:0')
-            output_03 = sess.graph.get_tensor_by_name('output_3:0')
+    
+    # 预测
+    with tf.Session() as sess:
+        img_input_01 = sess.graph.get_tensor_by_name('input_1:0')
+        img_input_02 = sess.graph.get_tensor_by_name('input_2:0')
+        output_01 = sess.graph.get_tensor_by_name('output_1:0')
+        output_02 = sess.graph.get_tensor_by_name('output_2:0')
+        output_03 = sess.graph.get_tensor_by_name('output_3:0')
+        
+        for img_01_path, img_02_path, label_t in data_list:
+            # 读入图像并进行预处理
+            img_01 = processong_img(img_path=img_01_path,
+                                    input_height=input_height,
+                                    input_width=input_width)
+            img_02 = processong_img(img_path=img_02_path,
+                                    input_height=input_height,
+                                    input_width=input_width)
+            op_time = time.time()
             result = sess.run([output_01, output_02, output_03],
                               feed_dict={img_input_01: img_01,
                                          img_input_02: img_02})
-        ed_time = time.time()
-        cost_time = ed_time-op_time
+            ed_time = time.time()
+            cost_time = ed_time-op_time
 
-        k0, k1, k2 = loss_weight
-        s0 = result[0].tolist()[0][0]
-        s1 = result[1].tolist()[0][0]
-        s2 = result[2].tolist()[0][0]
-        label_p = k0*s0+k1*s1+k2*s2
-        line = '{}, {}, {}, {}\n'.format(
-            img_01_path, img_02_path, label_t, label_p)
-        data_txt += line
-        print('==== label_true:{}; label_pred:{:4f}; cost_time:{:.4}s'.format(
-            label_t, label_p, cost_time))
+            k0, k1, k2 = loss_weight
+            s0 = result[0].tolist()[0][0]
+            s1 = result[1].tolist()[0][0]
+            s2 = result[2].tolist()[0][0]
+            label_p = k0*s0+k1*s1+k2*s2
+            line = '{}, {}, {}, {}\n'.format(img_01_path, img_02_path, label_t, label_p)
+            data_txt += line
+            print('==== label_true:{}; label_pred:{:4f}; cost_time:{:.4}s'.format(label_t, label_p, cost_time))
 
     if test_result_path:
         with open(test_result_path, 'w') as f:
@@ -181,11 +181,11 @@ if __name__ == "__main__":
     loss_weight = [0.3, 0.4, 0.3]  # 损失函数权重比例
     # threshold = 0.5  # 判定准确率阈值
 
-    test_img_01 = 'F:\\Deep_learning\\IDN_keras\\asdzz\\org_01_01.jpg'
-    test_img_02 = 'F:\\Deep_learning\\IDN_keras\\asdzz\\org_01_02.jpg'
-    test_img_03 = 'F:\\Deep_learning\\IDN_keras\\asdzz\\forg_01_01.jpg'
+    test_img_01 = 'F:\\Deep_learning\\IDN_keras\\org_01_01.jpg'
+    test_img_02 = 'F:\\Deep_learning\\IDN_keras\\org_01_02.jpg'
+    test_img_03 = 'F:\\Deep_learning\\IDN_keras\\forg_01_01.jpg'
 
-    # ------------------------------     .H5模型路径     ------------------------------
+    # ------------------------------     .pb模型路径     ------------------------------
     pb_path = 'F:\\Deep_learning\\IDN_keras\\pb_models\\model_IDN.pb'
     # --------------------------------------------------------------------------------
 
