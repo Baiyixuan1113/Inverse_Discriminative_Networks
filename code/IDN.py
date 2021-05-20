@@ -169,9 +169,8 @@ def IDN_discriminative_stream(inp_tensor):
 
 def feature_merge(features):
     ft_01, ft_02 = features
-    # ft_merge = K.concatenate([ft_01, ft_02], axis=-1)
-    ft_merge = Concatenate(axis=-1)([ft_01, ft_02])
-
+    # ft_merge = Concatenate(axis=-1)([ft_01, ft_02])
+    ft_merge = Add()([ft_01, ft_02])
     x = Conv2D(256, (3, 3), strides=1, padding="same")(ft_merge)
     x = BatchNormalization(axis=bn_axis, scale=False)(x)
     x = Activation('relu')(x)
